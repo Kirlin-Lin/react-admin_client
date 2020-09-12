@@ -37,9 +37,7 @@ class Login extends Component {
           // 提示错误信息
           message.error(result.msg)
         }
-      } else {
-        console.log('检验失败!')
-      }
+      } 
     });
     // 得到form对象
     // const form = this.props.form
