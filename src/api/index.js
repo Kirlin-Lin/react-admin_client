@@ -95,6 +95,7 @@ export const reqWeather = (city) => {
         const {dayPictureUrl, weather} = data.results[0].weather_data[0]
         resolve({dayPictureUrl, weather})
       } else {
+        console.log(err)
         // 如果失败了
         message.error('获取天气信息失败!')
       }
