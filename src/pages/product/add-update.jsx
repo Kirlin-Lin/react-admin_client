@@ -1,13 +1,5 @@
 import React, {PureComponent} from 'react'
-import {
-  Card,
-  Icon,
-  Form,
-  Input,
-  Cascader,
-  Button,
-  message
-} from 'antd'
+import { Card, Icon, Form, Input, Cascader, Button, message } from 'antd'
 
 import PicturesWall from './pictures-wall'
 import RichTextEditor from './rich-text-editor'
@@ -41,6 +33,7 @@ class ProductAddUpdate extends PureComponent {
       label: c.name,
       isLeaf: false, // 不是叶子
     }))
+    console.log('potions:',options);
 
     // 如果是一个二级分类商品的更新
     const {isUpdate, product} = this
@@ -135,6 +128,7 @@ class ProductAddUpdate extends PureComponent {
   submit = () => {
     // 进行表单验证, 如果通过了, 才发送请求
     this.props.form.validateFields(async (error, values) => {
+      console.log('values:',values)
       if (!error) {
 
         // 1. 收集数据, 并封装成product对象

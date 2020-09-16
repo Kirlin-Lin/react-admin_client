@@ -1,13 +1,5 @@
 import React, {Component} from 'react'
-import {
-  Card,
-  Select,
-  Input,
-  Button,
-  Icon,
-  Table,
-  message
-} from 'antd'
+import { Card, Select, Input, Button, Icon, Table, message } from 'antd'
 
 import LinkButton from '../../components/link-button'
 import {reqProducts, reqSearchProducts, reqUpdateStatus} from '../../api'

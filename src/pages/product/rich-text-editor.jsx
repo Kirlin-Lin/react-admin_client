@@ -39,12 +39,12 @@ export default class RichTextEditor extends Component {
   }
 
   /*
-  输入过程中实时的回调
+  输入过程中实时的回调,传入的是最新的editorState对象
    */
   onEditorStateChange = (editorState) => {
     console.log('onEditorStateChange()')
     this.setState({
-      editorState,
+      editorState, 
     })
   }
 
@@ -53,7 +53,7 @@ export default class RichTextEditor extends Component {
     return draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
   }
 
-  uploadImageCallBack = (file) => {
+  uploadImageCallBack = (file) => {   
     return new Promise(
       (resolve, reject) => {
         const xhr = new XMLHttpRequest()
@@ -79,7 +79,7 @@ export default class RichTextEditor extends Component {
     return (
       <Editor
         editorState={editorState}
-        editorStyle={{border: '1px solid black', minHeight: 200, paddingLeft: 10}}
+        editorStyle={{border: '1px solid black', minHeight: 300, paddingLeft: 10}}
         onEditorStateChange={this.onEditorStateChange}
         toolbar={{
           image: { uploadCallback: this.uploadImageCallBack, alt: { present: true, mandatory: true } },
