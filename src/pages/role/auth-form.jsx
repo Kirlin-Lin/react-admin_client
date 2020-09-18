@@ -31,6 +31,7 @@ export default class AuthForm extends Component {
 
     getTreeNodes=(menuList)=>{
         return menuList.reduce((pre,item)=>{
+            console.log(item)
             pre.push(
                 <TreeNode title={item.title} key={item.key}>
                     {item.children? this.getTreeNodes(item.children):null}

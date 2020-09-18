@@ -3,6 +3,7 @@ import {Button,Table,Card,Modal, Result, message} from 'antd'
 import {PAGE_SIZE} from '../../utils/constants'
 import {reqRoles,reqAddRole,reqUpdateRole} from '../../api'
 import memoryUtils from '../../utils/memoryUtils'
+import storageUtils from '../../utils/storageUtils'
 import {formateDate} from '../../utils/dateUtils'
 import AddForm from './add-form'
 import AuthForm from './auth-form'
@@ -122,8 +123,19 @@ export default class Role extends React.Component{
         //请求更新
         const result = await reqUpdateRole(role)
         if(result.status===0){
-            message.success('设置角色权限成功')
-            this.getRoles()
+            //this.getRoles()
+            //如果当前更新的是自己所属的角色权限，就强制退出
+            if(role._id === memoryUtils.user.role_id){
+                memoryUtils.user={}
+                storageUtils.removeUser()
+                this.props.history.replace('/login')
+                message.success('当前用户角色权限已修改，请重新登陆')
+            }else{
+                message.success('设置角色权限成功')
+                this.setState({
+                    roles:[...this.state.roles]
+                })  
+            }
         }else{
             message.error('设置角色权限失败')
         }
@@ -148,7 +160,8 @@ export default class Role extends React.Component{
         )
         return(
             <Card title={title}>
-                <Table onRow={this.onRow} bordered rowKey='_id' rowSelection={{type:'radio',selectedRowKeys:[role._id]}} dataSource={roles} columns={this.columns} pagination={{defaultPageSize:PAGE_SIZE}}/>
+                <Table onRow={this.onRow} bordered rowKey='_id'  rowSelection={{
+                    type:'radio', selectedRowKeys:[role._id], onSelect:(role)=>{this.setState({role})} }} dataSource={roles} columns={this.columns} pagination={{defaultPageSize:PAGE_SIZE}}/>
                 <Modal
                     title="添加角色"
                     visible={isShowAdd}
